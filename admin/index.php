@@ -1,84 +1,48 @@
 <?php
-      // session_start();
-      // $myusername = $_SESSION['nam'] ;
-      // $mypassword = $_SESSION['pas'] ;
-
-    session_start();
-    $myusername = isset($_SESSION['nam'])?$_SESSION['nam']:"" ;
-    $mypassword = isset($_SESSION['pas'])?$_SESSION['pas']:"" ;
+  	session_start();
+  	if(isset($_SESSION['admin'])){
+    	header('location:home.php');
+  	}
 ?>
-<?php
-      if(isset($_COOKIE['$email']) && $_COOKIE['$pass']){
-          header("Location:admin.php");
-          exit;
-      }
-?>
+<?php include 'includes/header.php'; ?>
 
-<!DOCTYPE html>
-<html >
-<head>
-  <meta charset="UTF-8">
-  <title>Admin Login Form</title>
+<body class="hold-transition login-page" style="background-color:#F1E9D2" >
+<div class="login-box" style="background-color:#a69f8b ;color:white ; font-size: 22px; font-family:Times">
+  	<div class="login-logo" style="background-color: #a69f8b  ;color:white ; font-size: 22px; font-family:Times  ">
+  		<b> Online Voting System</b>
+  	</div>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  	<div class="login-box-body"style="background-color:#a69f8b ;color:white ; font-size: 22px; font-family:Times  " >
+    	<p class="login-box-msg" style="color:black ; font-size: 16px; font-family:Times  " >Sign in to start your admin session</p>
 
-  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
-<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
-
-      <link rel="stylesheet" href="css/style.css">
-
-      <script language="JavaScript" src="js/admin.js">
-  </script>
-
-  
-</head>
-
-<body style="background-image:url('images/demo/backgrounds/bCY7Scu.png');">
-
-
-  
-
-<div class="pen-title">
-  <h1>Admin Login Form</h1>
+    	<form action="login.php" method="POST">
+      		<div class="form-group has-feedback">
+        		<input type="text" class="form-control" name="username" placeholder="Username" required>
+        		<span class="glyphicon glyphicon-user form-control-feedback"></span>
+      		</div>
+          <div class="form-group has-feedback">
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>
+      		<div class="row">
+    			<div class="col-xs-4">
+          			<button type="submit" class="btn btn-primary btn-block btn-curve"style="background-color: #4682B4 ;color:black ; font-size: 12px; font-family:Times"  name="login"><i class="fa fa-sign-in"></i> Sign In</button>
+        		</div>
+      		</div>
+    	</form>
+  	</div>
+  	<?php
+  		if(isset($_SESSION['error'])){
+  			echo "
+  				<div class='callout callout-danger text-center mt20'>
+			  		<p>".$_SESSION['error']."</p> 
+			  	</div>
+  			";
+  			unset($_SESSION['error']);
+  		}
+  	?>
 </div>
-
-<div class="container" >
-  <div class="card"></div>
-
-  <div class="card">
-    <h1 class="title">Login</h1>
-    <form name="form1" action="checklogin.php" method="post" onsubmit="return loginValidate(this)">
-
-      <div class="input-container">
-        <input name="myusername" value="<?php echo $myusername  ?>" type="text" required="required"/>
-        <label>Email</label>
-        <div class="bar"></div>
-      </div>
-      <div class="input-container">
-        <input name="mypassword" value="<?php echo $mypassword ?>" type="password"  required="required"/>
-        <label>Password</label>
-        <div class="bar"></div>
-      </div>
-
-      <center><tr><td colspan="2" align="center"><input type="checkbox" name="remember" value="1"> <font color="blue">Remember Me</font></td></tr></center><br>
-
-      <div class="button-container">
-
-        <button name="Submit"><span>Login</span></button>
-
-      </div>
-      <br><br>
-    <center>Return to <a href="http://localhost/online_voting/index.php">Voter Panel</a></center>
-
-    </form>
-  </div>
-  
-</div>
-
-
+	
+<?php include 'includes/scripts.php' ?>
 </body>
 </html>
-
-
-
-
